@@ -1,0 +1,123 @@
+.div-item-box {
+    width: 90%;
+}
+
+.form-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px 2%;
+}
+
+.form-div .form-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form-div .form-column {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    text-align: left;
+    padding: 0px 10px;
+}
+
+select, input {
+    width: 100%;
+}
+
+.form-div .form-column textarea {
+    width: 100%;
+    height: 250px;
+    overflow: auto;
+}
+
+.form-div .form-column textarea#outrosparticipantescompromisso {
+    height: 150px;
+}
+
+button#cancelar {
+    background-color: #2758BA;
+}
+
+.button-field {
+    justify-content: right;
+    margin-top: 10px;
+}
+
+.button-field button {
+    margin-right: 10px;
+}
+
+.div-item-box#large #compromissoresult {
+    margin-top: 0px;
+}
+
+.calendar-row#column {
+    flex-direction: column!important;
+}
+
+.calendar-row#column .item-box-text#select-calendar {
+    width: 100%!important;
+}
+
+.calendar-row#column .item-box-text#obj-calendar {
+    width: 100%!important;
+}
+
+.ftco-section {
+    padding: 0px!important;
+    margin-top: 20px;
+}
+
+.select2-container {
+    width: 100%!important;
+}
+
+tbody td:after {
+    width: 38px!important;
+    height: 38px!important;
+}
+
+.head-day {
+    font-size: 5em!important;
+}
+
+.div-item-box#small-calendar {
+    min-height: 810px!important;
+}
+
+.erro-celular{
+    display: none;
+}
+
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    .body {
+        display: none!important;
+    }
+
+    .erro-celular{
+        display: block;
+        width: 100%;
+    }
+
+    .erro-celular div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 600px;
+        background-color: white;
+        color: chocolate;
+        font-size: 28px;
+        text-align: center;
+        font-family: Anton;
+    }
+
+    .logo-login {
+        width: 35%;
+    }
+}

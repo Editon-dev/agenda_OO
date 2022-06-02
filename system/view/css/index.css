@@ -1,0 +1,99 @@
+.div-item-box#large #compromissoresult h2 {
+    font-family: Anton;
+    font-size: 40px;
+    text-decoration: underline;
+}
+
+h2#titulo-detalhe {
+    font-family: 'Carme'!important;
+    text-decoration: none!important;
+    font-size: 27px!important;
+}
+
+.div-item-box#large #compromissoresult {
+    margin-top: 0px;
+}
+
+.calendar-row#column {
+    flex-direction: column!important;
+}
+
+.calendar-row#column .item-box-text#select-calendar {
+    display: flex;
+    flex-direction: column;
+    width: 100%!important;
+}
+
+.calendar-row#column .item-box-text#obj-calendar {
+    width: 100%!important;
+}
+
+.ftco-section {
+    padding: 0px!important;
+    margin-top: 20px;
+}
+
+.select2-container {
+    width: 100%!important;
+}
+
+tbody td:after {
+    width: 38px!important;
+    height: 38px!important;
+}
+
+.head-day {
+    font-size: 5em!important;
+}
+
+.data-result {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-left: 5%;
+}
+
+.data-result .data-result-content {
+    width: fit-content;
+    color: #007bff;
+    text-decoration: underline;
+    padding: 10px;
+    cursor: pointer;
+}
+
+button#todos {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    .div-item-box#small-calendar {
+        width: 98%;
+    }
+
+    .calendar-row#column .item-box-text#select-calendar {
+        align-items: center;
+    }
+
+    .calendar-row#column {
+        width: 98%;
+    }
+
+    .div-item-box#small-calendar .calendar-row {
+        padding: 5% 2%;
+    }
+
+    div#totalcompromissosresult {
+        text-align: center;
+    }
+
+    .div-item-box#large {
+        width: 98%;
+    }
+
+    .select2-container {
+        width: 80%!important;
+    }
+}

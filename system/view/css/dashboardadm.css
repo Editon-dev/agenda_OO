@@ -1,0 +1,36 @@
+.form-column#nome {
+    width: 100%;
+}
+
+.div-item-box#small-calendar .calendar-row .item-box-text#select-calendar {
+    width: 100%;
+}
+
+.menu-button#buscar {
+    margin-left: 30%;
+}
+
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    .body {
+        display: none!important;
+    }
+
+    .erro-celular{
+        display: block;
+        width: 100%;
+    }
+
+    .erro-celular div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 600px;
+        background-color: white;
+        color: chocolate;
+        font-size: 28px;
+        text-align: center;
+        font-family: Anton;
+    }
+}

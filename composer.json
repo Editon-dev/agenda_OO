@@ -1,0 +1,8 @@
+{
+    "name":"sgov/agenda",
+    "autoload":{
+        "psr-4": {
+            "Classes\\":"system/model/"
+        }
+    }
+}

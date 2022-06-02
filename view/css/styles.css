@@ -1,0 +1,508 @@
+@import url('https://fonts.googleapis.com/css2?family=Carme&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+* {
+    font-family: Carme;
+    font-size: 14px;
+    color: rgb(121, 121, 121);
+    margin: 0px;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+div:hover::-webkit-scrollbar-thumb {
+    background-color: rgb(200, 200, 200); 
+    border-radius: 20px;
+    border: 3px solid white;
+}
+
+div::-webkit-scrollbar {
+    width: 13px;
+}
+
+/* FIREFOX */
+body {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(190, 190, 190) white;
+}
+
+input:disabled, select:disabled, textarea:disabled, button:disabled {
+    filter: opacity(80%);
+    pointer-events: none;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+}
+
+.body {
+    position: absolute;
+    width: 100%;
+}
+
+.main-container {
+    position: relative;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    min-height: calc(810px + 80px);
+    background-color: rgb(248, 248, 248);
+    border-radius: 15px;
+    margin-top: 65px;
+    margin-bottom: .7%;
+    margin-left: .5%;
+    margin-right: .5%;
+    padding: 2%;
+    box-shadow: 0 0 3px rgba(128, 128, 128, 0.829);
+    z-index: 2;
+}
+
+header div.menu-bar {
+    position: absolute;
+    width: 100%;
+    height: 55px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    background-color: #6699FF;
+    padding: .3%;
+}
+
+.bar-itens {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: .3%;
+}
+
+.menu-button {
+    position: relative;
+    width: fit-content;
+    max-width: 210px;
+    border-radius: 10px;
+    background-color: #6699FF;
+    color: white;
+    font-size: 13px;
+    padding: 6px 20px;
+    margin-left: 10px;
+    border: 0px solid;
+    transition: all 500ms;
+    cursor: pointer;
+}
+
+.menu-button:hover {
+    background-color: #74a2ff;
+    color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.164);
+}
+
+body .menu-button:focus,
+body button:focus {
+    outline-offset: none;
+    outline-width: 0px;
+}
+
+.menu-button#excluir {
+    background-color: red;
+}
+
+.div-item1 .menu-button {
+    width: 200px;
+}
+
+.adm-button button.menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    background-color: #4c7ee4;
+    margin-right: 2%;
+}
+
+.adm-icon {
+    width: 20px;
+    margin-right: 5px;
+}
+
+.logo {
+    position: relative;
+    --debug: 100px;
+    width: var(--debug);
+    height: calc(var(--debug) / 2.5);
+    margin-top: 2px;
+    margin-left: 1%;
+    box-shadow: inset 0 0 0px rgb(255, 255, 255), 0 0 0px rgb(255, 255, 255);
+    background: url(../../images/agenda_logo_p.png);
+    background-size: 100% 100%;
+    opacity: 88%;
+    transition: all 100ms;
+}
+
+.titulo {
+    font-family: Anton;
+    font-size: 32px;
+    color: white;
+    letter-spacing: 2px;
+    margin-left: 1%;
+}
+
+.div-item1#tutorial {
+    flex-direction: column;
+    align-items: center;
+    width: 98%;
+    border-radius: 15px;
+    padding: 0%;
+}
+
+.tutorial-container {
+    width: 50%;
+    margin: 3%;
+    text-align: center;
+}
+
+h2#tutorial {
+    margin-bottom: 2%;
+}
+
+.content-grid {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 80px;
+}
+
+.div-item-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 99%;
+    height: fit-content;
+    margin: 1%;
+    padding: 5%;
+    background-color: white;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.24);
+    transition: all 100ms;
+}
+
+.div-item-box#select-itens {
+    align-items: center;
+    width: 50%;
+}
+
+.item-box-text {
+    text-align: center;
+}
+
+.text-title {
+    position: relative;
+    width: auto;
+    height: 40px;
+    font-family: Anton;
+    font-size: 28px;
+    color: white;
+    padding: 5px;
+    padding-top: 1px;
+    padding-left: 15px;
+    margin: -2.2%;
+    margin-bottom: 2%;
+    background-color: #8CB2FF;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.24);
+    z-index: 1;
+}
+
+select, input, textarea {
+    width: 90%;
+    height: 25px;
+    color: rgb(107, 107, 107);
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid rgb(175, 175, 175);
+    transition: all 500ms;
+}
+
+select {
+    cursor: pointer;
+}
+
+input[type="date"] {
+    cursor: text;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+}
+
+select:hover, input:hover, textarea:hover {
+    box-shadow: inset 0 0 3px rgb(102, 153, 255);
+}
+
+select:focus, input:focus, textarea:focus, button {
+    outline-offset: unset;
+    outline-width: 0;
+}
+
+.select-itens {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    height: fit-content;
+    padding: 5% 2%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    border-radius: 10px;
+    background-color: rgb(245, 245, 245);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.24);
+}
+
+.select-itens select {
+    margin-bottom: 2%;
+}
+
+.select-itens button {
+    margin-top: 10px;
+}
+
+.button-field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.img-bigbox {
+    width: 36%;
+    margin-bottom: 5%;
+}
+
+.img-smallbox {
+    width: 38%;
+    margin-bottom: 4%;
+}
+
+/*FOOTER*/
+.footer {
+    position: absolute;
+    bottom: 2.5%;
+    width: 100%;
+    height: 100px;
+    background-color: rgb(221, 221, 221);
+    margin: -2.1%;
+    margin-top: 5%;
+    padding: 2%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.footer-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: -1%;
+}
+
+.footer-columm {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    transition: all 100ms;
+}
+
+.contact-row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2%;
+}
+
+.tel-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0%);
+    margin-top: 2px;
+}
+
+.mail-icon {
+    width: 20px;
+    height: 20px;
+    margin-top: 1%;
+    filter: brightness(0%);
+}
+
+.footer-row h4#footer-contact {
+    margin: 1.3%;
+    color: black;
+    font-size: 13px;
+}
+
+.footer-contact-text h4 {
+    color: black;
+    font-size: 13px;
+    line-height: 25px;
+}
+
+.logo-ipm-small {
+    width: 3%;
+    height: auto;
+}
+
+.logo-ipm-small-img {
+    width: 100%;
+}
+/*FIM DE PADRÃO*/
+
+
+.div-item-box#topo {
+    width: 98%;
+    padding: 2% 5%;
+}
+
+.div-item-box#topo h3 {
+    line-height: 2rem;
+}
+
+.div-item-box#small-calendar {
+    width: 50%;
+    min-height: 947px;
+    text-align: center;
+    padding: 2%;
+}
+
+.div-item-box#small-calendar h2 {
+    margin-bottom: 0px;
+}
+
+.div-item-box#small-calendar .calendar-row {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(248, 248, 248);
+    padding: 5% 4%;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.24);
+}
+
+.div-item-box#small-calendar .calendar-row .item-box-text#select-calendar {
+    width: 50%;
+    text-align: left;
+    background-color: white;
+    margin-right: .5%;
+    padding: 3%;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+}
+
+.div-item-box#small-calendar .calendar-row .item-box-text#obj-calendar {
+    width: 50%;
+    margin-left: .5%;
+    border-radius: 10px;
+}
+
+.div-item-box#large {
+    text-align: center;
+    padding: 2%;
+}
+
+.div-item-box#large #compromissoresult {
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    header div.menu-bar {
+        height: 110px;
+        max-width: 100vw;
+    }
+
+    .logo {
+        width: 110px;
+        height: 90px;
+        margin-top: 6px;
+        background: url(../../images/agenda_logo_g.png) no-repeat;
+        background-size: auto 100%;
+        box-shadow: inset 0 0 0px rgb(255, 255, 255), 0 0 0px rgb(255, 255, 255);
+    }
+
+    .adm-button button.menu-button {
+        display: flex;
+        flex-direction: column;
+        width: 75px;
+        height: 70px;
+        margin-top: 5%;
+        font-size: 10px;
+    }
+
+    .adm-icon {
+        width: 38%;
+        margin-bottom: 2%;
+    }
+
+    .titulo {
+        font-size: 25px;
+        text-align: center;
+        margin-top: 4%;
+    }
+
+    .main-container {
+        width: 99%;
+        margin-top: 115px;
+    }
+
+    .content-grid {
+        flex-direction: column;
+    }
+
+    .text-title {
+        font-size: 20px;
+        text-align: center;
+        padding-top: 5px;
+    }
+
+    .div-item-box {
+        align-items: center;
+        text-align: center;
+    }
+
+    .div-item-box#select-itens {
+        width: 99%;
+    }
+
+    .footer-tutorial div#right,
+    .footer-tutorial div#right b,
+    .footer-tutorial div b,
+    .footer-tutorial div {
+        font-size: 8px;
+    }
+
+    .footer-row h4#footer-contact b {
+        font-size: 10px!important;
+    }
+    
+    .footer-contact-text h4 {
+        font-size: 10px!important;
+        line-height: 15px;
+    }
+
+    .logo-ipm-small {
+        width: 17%;
+        height: auto;
+        margin-right: 7%;
+    }
+    /*FIM DE PADRÃO*/
+
+    .button-field#exemplos {
+        justify-content: center;
+    }
+
+    .footer {
+        bottom: -1.5%;
+    }
+
+    .bar-itens {
+        padding: 0px 2%;
+    }
+
+}
