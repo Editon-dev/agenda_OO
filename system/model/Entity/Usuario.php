@@ -2,20 +2,19 @@
     namespace Classes\Entity;
     require __DIR__.'/../../../vendor/autoload.php';
     use Classes\Db\Database;
+    use Classes\Session\Session;
     use PDO;
 
     class Usuario {
         private $nome;
         private $login;
         private $senha;
-        private $token;
         private $codigo;
 
-        public function __construct($nome = null, $login = null, $senha = null, $token = null, $codigo = null){
+        public function __construct($nome = null, $login = null, $senha = null, $codigo = null){
             $this->nome = $nome;
             $this->login = $login;
             $this->senha = $senha;
-            $this->token = $token;
             $this->codigo = $codigo;
         }
 
@@ -46,15 +45,6 @@
             return $this;
         }
 
-        public function getToken(){
-            return $this->token;
-        }
-
-        public function setToken($token){
-            $this->token = $token;
-            return $this;
-        }
-
         public function getCodigo(){
             return $this->codigo;
         }
@@ -79,7 +69,6 @@
                 'nome' => $this->nome,
                 'login' => $this->login,
                 'senha' => $this->senha,
-                'token' => $this->token,
                 'codigo' => $this->codigo
             ]);
         }
@@ -90,7 +79,6 @@
                 'nome' => $this->nome,
                 'login' => $this->login,
                 'senha' => $this->senha,
-                'token' => $this->token,
                 'codigo' => $this->codigo
             ],'id = '.$id)){
                 return true;
@@ -103,24 +91,14 @@
             return $result;
         }
 
-        public function autenticar($login, $senha, $tipo) {
-            $obDatabase = new Database($tipo, $this->iddb);
-            $result = $obDatabase->select("id", "login = '".md5($login)."' AND senha = '".md5($senha)."'")->fetchALL(PDO::FETCH_ASSOC);
+        public function autenticar($login, $senha, $table) {
+            $obDatabase = new Database($table, $this->iddb);
+            $result = $obDatabase->select("id, nome", "login = '".md5($login)."' AND senha = '".md5($senha)."'")->fetchALL(PDO::FETCH_ASSOC);
             return $result;
         }
 
-        public function login($id, $token, $tipo) {
-            $obDatabase = new Database($tipo, $this->iddb);
-            if($obDatabase->update(['token' => md5($token)], 'id = \''.$id.'\'')){
-                return $token;
-            }
-        }
-
-        public function logout($id, $tipo) {
-            $obDatabase = new Database($tipo, $this->iddb);
-            if($obDatabase->update(['token' => 'NULL'], 'token = \''.md5($id).'\'')){
-                return 'true';
-            }
+        public function iniciarSessao($id, $table, $tipo = null, $dados) {
+            Session::login($this->iddb, $tipo, $dados);
         }
     }
 

@@ -95,7 +95,6 @@
                 $_POST['nome'],
                 md5($_POST['login']),
                 md5($_POST['senha']),
-                NULL,
                 md5($_POST['codigousuarioinput'])
             );
             $obUsuario->setIddb($_GET['id']);

@@ -41,7 +41,7 @@
     <!--ADM BUTTON-->
     <?php
         $hidden = "";
-        $admurl = "exitDashboard(this, 'masteruser')";
+        $admurl = "controller/db/logout.php?id=".$_GET['id'];
         $admname = "Sair";
         $admimg = "sair_icon.png";
     ?>
@@ -50,19 +50,12 @@
     <?php
         require __DIR__.'/../vendor/autoload.php';
         use Classes\Entity\Usuario;
-        use Classes\Db\Database;
+        use Classes\Session\Session;
 
         $iddb = $_GET['id'];
 
         /*AUTENTICAÇÃO*/
-        $obDatabase = new Database('masteruser', $iddb);
-        $atResult = $obDatabase->autenticaDB($_GET['tk'])->fetchALL(PDO::FETCH_ASSOC);
-        if(!$atResult != null && !$atResult != ""){
-            header('Location: paineladm.php?id='.$iddb);
-        }
-        else{
-            foreach($atResult as $at){}
-        }
+        $ud = Session::requiredLogin();
 
         $obUsuario = new Usuario();
         $obUsuario->setIddb($iddb);
@@ -74,7 +67,7 @@
     <header>
         <!--MENU-->
         <?php require_once "../view/elements/menu_bar.php" ?>
-        <input type="hidden" name="iddb" id="iddb" value="<?php echo $iddb ?>">
+        <input type="hidden" name="iddb" id="iddb" value="<?=$iddb ?>">
     </header>
 
     <div class="body">
@@ -83,7 +76,7 @@
                 AGENDA DE AUTORIDADES
             </div>
             <div class="div-item-box" id="topo">
-                <h1 align=center>Olá <?php echo $at['nomeu'] ?>,</h1>
+                <h1 align=center>Olá <?=$ud['nome'] ?>,</h1>
                 <h4 align=center>Esse é o painel administrativo master, onde por aqui você pode adicionar, alterar ou remover
                     autoridade/usuário do seu sistema.</h4>
             </div>
@@ -162,7 +155,7 @@
         <div>
         <img class="logo-login" src="../images/agenda_logo_g.png">
         ESSE SISTEMA NÃO PODE SER ABERTO APARTIR DE CELULARES!
-        <button class="menu-button" id="login" onclick="exitDashboardAdm('<?php echo $_GET['tk'] ?>')">Voltar para a Tela Inicial</button>
+        <button class="menu-button" id="login" onclick="exitDashboardAdm('<?=$_GET['tk'] ?>')">Voltar para a Tela Inicial</button>
         </div>
     </div>
 

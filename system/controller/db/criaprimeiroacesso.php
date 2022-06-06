@@ -8,15 +8,15 @@
     $id = $_POST['id'];
 
     try{
-        $obUsuario = new Usuario($nome, $login, $senha, null, null);
+        $obUsuario = new Usuario($nome, $login, $senha, null);
         $obUsuario->setIddb($_GET['id']);
         if($obUsuario->atualizar($id)){
             echo 1;
         }
     }
     catch(Exception $e){
-        echo 'Erro ao criar cliente.';
-        //echo $e->getMessage();
+        //echo 'Erro ao criar cliente.';
+        echo 'Erro: '.$e->getMessage();
     }
 
 ?>

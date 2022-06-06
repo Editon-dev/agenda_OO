@@ -47,22 +47,32 @@
     <!--BANCO DE DADOS-->
     <?php
         require __DIR__.'/../vendor/autoload.php';
-        use Classes\Entity\Compromisso;
-        use Classes\Db\Database;
+        use Classes\Entity\Usuario;
 
         $iddb = $_GET['id'];
-
-        /*AUTENTICAÇÃO*/
-        if($iddb != "teste"){
-            $obDatabase = new Database('sgov', $iddb);
-            $atResult = $obDatabase->autenticaSGOV($iddb, 'agenda')->fetchALL(PDO::FETCH_ASSOC);
-            if(!$atResult != null && !$atResult != ""){
-                header('Location: ../index.php');
+        $loginerro = '';
+        $codscript = '';
+        if(isset($_POST['acao'])){
+            if($_POST['login'] == 'teste' && $_POST['senha'] == '123456'){
+                $codscript = '<script>confereCod(\''.$_POST['login'].'\', \''.$_POST['senha'].'\', \''.$iddb.'\');</script>';
             }
             else{
-                foreach($atResult as $at){}
-                if($at['id_status'] != "1"){
-                    header('Location: ../index.php');
+                $obUsuario = new Usuario();
+                $obUsuario->setIddb($_GET['id']);
+                $result2 = $obUsuario->autenticar($_POST['login'], $_POST['senha'], 'masteruser');
+                $result = $obUsuario->autenticar($_POST['login'], $_POST['senha'], 'usuarios');
+                if($result2 != null){
+                    foreach($result as $r){}
+                    $obUsuario->iniciarSessao($r['id'], 'masteruser', 'adm', $result2);
+                    exit();
+                }
+                if($result != null){
+                    foreach($result as $r){}
+                    $obUsuario->iniciarSessao($r['id'], 'usuarios', null, $result);
+                    exit();
+                }
+                if(!$result != null && !$result != null){
+                    $loginerro = '<div class="loginerro" id="loginerro">Login ou Senha incorretos!</div>';
                 }
             }
         }
@@ -73,7 +83,7 @@
     <header>
         <!--MENU-->
         <?php require_once "../view/elements/menu_bar.php" ?>
-        <input type="hidden" name="iddb" id="iddb" value="<?php echo $iddb ?>">
+        <input type="hidden" name="iddb" id="iddb" value="<?=$iddb ?>">
     </header>
 
     <div class="body">
@@ -90,20 +100,21 @@
                     caso tenha cadastro para acesso a essa área por favor entre com Login e Senha<br>
                     no painel indicado.<br><br>
                     <div class="button-field" id="exemplos">
-                        <button class="menu-button" style="margin-left:0px;" id="voltar" onclick="document.location.href='index.php?id=<?php echo $iddb ?>'">Voltar para a Tela Inicial</button>
+                        <button class="menu-button" style="margin-left:0px;" id="voltar" onclick="document.location.href='index.php?id=<?=$iddb ?>'">Voltar para a Tela Inicial</button>
                     </div>
                 </div>
 
                 <div class="div-item-box" id="login-paineladm">
                     <div class="login-paineladm-div">
                         <img class="img-smallbox" src="../images/agenda_logo_g.png">
-                        <div class="login-field" id="login-field">
-                            Login: <input type="text" name="login" id="login">
-                            Senha: <input type="password" name="senha" id="senha">
+                        <?=$loginerro ?>
+                        <form class="login-field" id="login-field" method="post">
+                            Login: <input type="text" name="login" id="login" required>
+                            Senha: <input type="password" name="senha" id="senha" required>
                             <div class="button-field" style="justify-content: center;">
-                                <button class="menu-button" id="entrar" style="margin-left:0px;" onclick="autenticador()">Entrar</button>
+                                <button type="submit" name="acao" class="menu-button" id="entrar" style="margin-left:0px;" >Entrar</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -119,16 +130,8 @@
 <script src="controller/js/popper.min.js"></script>
 <script src="controller/js/jquery-3.5.1.min.js"></script>
 <script>
-    const inputEle = document.getElementById('login-field');
-    inputEle.addEventListener('keyup', function(e){
-    var key = e.which || e.keyCode;
-    if (key == 13) {
-        autenticador();
-    }
-    });
-</script>
-<script>
     document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
 </script>
+<?=$codscript ?>
 </body>
 </html>

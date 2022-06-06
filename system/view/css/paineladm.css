@@ -95,3 +95,12 @@ button#todos {
     color: #007bff;
     text-decoration: underline;
 }
+
+.loginerro {
+    width: 100%;
+    text-align: center;
+    background-color: #ffdfe4;
+    color: red;
+    padding: 3%;
+    border-radius: 5px;
+}

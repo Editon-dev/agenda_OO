@@ -44,7 +44,7 @@
     <!--ADM BUTTON-->
     <?php
         $hidden = "";
-        $admurl = "exitDashboard(this, 'usuarios')";
+        $admurl = "controller/db/logout.php?id=".$_GET['id'];
         $admname = "Sair";
         $admimg = "sair_icon.png";
     ?>
@@ -53,25 +53,18 @@
     <?php
         require __DIR__.'/../vendor/autoload.php';
         use Classes\Entity\Compromisso;
-        use Classes\Db\Database;
+        use Classes\Session\Session;
 
         $iddb = $_GET['id'];
 
         /*AUTENTICAÇÃO*/
-        $obDatabase = new Database('usuarios', $iddb);
-        $atResult = $obDatabase->autenticaDB($_GET['tk'])->fetchALL(PDO::FETCH_ASSOC);
-        if(!$atResult != null && !$atResult != ""){
-            header('Location: paineladm.php?id='.$iddb);
-        }
-        else{
-            foreach($atResult as $at){}
-        }
+        $ud = Session::requiredLogin();
 
         $obCompromisso = new Compromisso();
         $obCompromisso->setIddb($iddb);
-        $result = $obCompromisso->buscar("count(id) as count", "idautoridade = ".$at['id']." AND (data > NOW() OR datainicio > NOW())");
+        $result = $obCompromisso->buscar("count(id) as count", "idautoridade = ".$ud['id']." AND (data > NOW() OR datainicio > NOW())");
         foreach($result as $rs){}
-        $resultprox = $obCompromisso->buscar("DATE_FORMAT(data, '%d/%m') as datacompromisso, DATE_FORMAT(datainicio, '%d/%m') as datainiciocompromisso, data, datainicio", "idautoridade = ".$at['id']." AND (data > NOW() OR datainicio > NOW())", "datainicio ASC, data ASC");
+        $resultprox = $obCompromisso->buscar("DATE_FORMAT(data, '%d/%m') as datacompromisso, DATE_FORMAT(datainicio, '%d/%m') as datainiciocompromisso, data, datainicio", "idautoridade = ".$ud['id']." AND (data > NOW() OR datainicio > NOW())", "datainicio ASC, data ASC");
     ?>
     
 </head>
@@ -79,7 +72,7 @@
     <header>
         <!--MENU-->
         <?php require_once "../view/elements/menu_bar.php" ?>
-        <input type="hidden" name="iddb" id="iddb" value="<?php echo $iddb ?>">
+        <input type="hidden" name="iddb" id="iddb" value="<?=$iddb ?>">
     </header>
 
     <div class="body">
@@ -88,7 +81,7 @@
                 AGENDA DE AUTORIDADES
             </div>
             <div class="div-item-box" id="topo">
-                <h1 align=center>Olá <?php echo $at['nomeu'] ?>,</h1>
+                <h1 align=center>Olá <?=$ud['nome'] ?>,</h1>
                 <h4 align=center>Por favor use o painel lateral esquerdo para adicionar um novo compromisso ou o calendário no painel direito para conferir,<br>
                 editar ou excluir um compromisso já criado.</h4>
             </div>
@@ -99,8 +92,8 @@
                         <form class="form-div" id="diainteiro">
                             <div class="form-row">
                                 <div class="form-column">
-                                    <input type="hidden" name="idautoridade" id="idautoridade" value="<?php echo $at['id'] ?>">
-                                    Nome da Autoridade: <input type="text" name="autoridade" id="autoridade" value="<?php echo $at['nomeu'] ?>" readonly="">
+                                    <input type="hidden" name="idautoridade" id="idautoridade" value="<?=$ud['id'] ?>">
+                                    Nome da Autoridade: <input type="text" name="autoridade" id="autoridade" value="<?=$ud['nome'] ?>" readonly="">
                                 </div>
                                 <div class="form-column">
                                     Local do Compromisso: <input type="text" name="local" id="local">
@@ -127,8 +120,8 @@
                         <form class="form-div" id="compromissonormal">
                             <div class="form-row">
                                 <div class="form-column">
-                                    <input type="hidden" name="idautoridade" id="idautoridade" value="<?php echo $at['id'] ?>">
-                                    Nome da Autoridade: <input type="text" name="autoridade" id="autoridade" value="<?php echo $at['nomeu'] ?>" readonly="">
+                                    <input type="hidden" name="idautoridade" id="idautoridade" value="<?=$ud['id'] ?>">
+                                    Nome da Autoridade: <input type="text" name="autoridade" id="autoridade" value="<?=$ud['nome'] ?>" readonly="">
                                 </div>
                                 <div class="form-column">
                                     Local do Compromisso: <input type="text" name="local" id="local">
@@ -176,7 +169,7 @@
                     Primeiro selecione no calendário a data que deseja acompanhar os compromissos e em
                     seguida o o compromisso para ter acesso aos detalhes.
                     Você pode acompanhar no texto abaixo os dias com compromissos vinculados a eles.<br>
-                    <b>Você tem um total de <?php echo $rs['count']; ?> compromissos futuros<?php if(isset($resultprox)){ echo ' e seu(s) próximo(s) compromisso(s) será(ão) em '; } else{ echo '.'; } ?>
+                    <b>Você tem um total de <?=$rs['count']; ?> compromissos futuros<?php if(isset($resultprox)){ echo ' e seu(s) próximo(s) compromisso(s) será(ão) em '; } else{ echo '.'; } ?>
                     <?php
                         if(isset($resultprox)){
                             $virgula = ", ";
@@ -207,7 +200,7 @@
                         <br><br>
                         <div class="item-box-text" id="select-calendar">
                             <b>Compromisso:</b>
-                            <select name="compromisso" id="compromisso" onchange="pegaCompromissoEdit(this, '<?php echo $at['id']?>')" disabled="">
+                            <select name="compromisso" id="compromisso" onchange="pegaCompromissoEdit(this, '<?=$ud['id']?>')" disabled="">
                                 <option value="">Selecione o compromisso</option>
                             </select>
                         </div>
@@ -225,7 +218,7 @@
         <div>
         <img class="logo-login" src="../images/agenda_logo_g.png">
         ESSE SISTEMA NÃO PODE SER ABERTO APARTIR DE CELULARES!
-        <button class="menu-button" id="login" onclick="exitDashboard('<?php echo $_GET['tk'] ?>')">Voltar para a Tela Inicial</button>
+        <button class="menu-button" id="login" onclick="exitDashboard('<?=$_GET['tk'] ?>')">Voltar para a Tela Inicial</button>
         </div>
     </div>
 

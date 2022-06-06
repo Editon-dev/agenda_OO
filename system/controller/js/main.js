@@ -129,59 +129,7 @@ function pegaCompromissoEdit(compromisso, idautoridade) {
     });
 }
 
-function autenticador() {
-    login = document.getElementById("login").value;
-    senha = document.getElementById("senha").value;
-    if ((login != "" && senha != "")){
-        var iddb = document.getElementById("iddb").value;
-        if(login == "teste" && senha == "123456"){
-            confereCod(iddb);
-        }
-        else{
-            $.ajax({
-                url: 'controller/db/autenticador.php?id='+iddb,
-                data: {login:login, senha:senha},
-                type: 'POST',
-                success: function(data){
-                    if(data>0 || data == "adm"){
-                        alert ("Login realizado! Carregando sistema...");
-                        tipo = "usuarios";
-                        var token = data;
-                        if(data == "adm"){
-                            tipo = "masteruser";
-                            token = "1";
-                        }
-                        $.ajax({
-                        url: 'controller/db/geratoken.php?id='+iddb,
-                        data: {id:token, tipo:tipo},
-                        type: 'POST',
-                        success: function(data){
-                            if(data != "0"){
-                                if(data == "Cliente desativado para esse sietema!")
-                                    alert(data);
-                                else{
-                                    alert("Por favor, durante o uso do sistema evite clicar no botão voltar ou fechar a janela sem finalizar a sessão clicando no botão sair do menu lateral.");
-                                    if(tipo == "masteruser")
-                                        document.location.href='dashboardadm.php?tk='+data+'&id='+iddb;
-                                    else
-                                        document.location.href='dashboard.php?tk='+data+'&id='+iddb;
-                                }
-                            }
-                        }
-                        });
-                    }
-                    else{
-                        alert ("Login ou senha incorretos!");
-                    }
-                }
-            });
-        }
-    }
-    else    
-        alert("Por favor preencha os campos vazios!");
-}
-
-function confereCod(iddb) {
+function confereCod(login, senha, iddb) {
     cod = prompt("Esse deve ser seu primeiro acesso. Por favor informe o código informado a você pelos administradores do sistema!");
     if(cod != "" && cod != null){
         $.ajax({
@@ -208,7 +156,8 @@ function confereCod(iddb) {
                             success: function(data){
                                 if(data == 1){
                                     alert("Novo login e senha cadastrados! Por favor tente realizar o login novamente com seus novos dados!\nLogin: "+login+"\nSenha: "+senha);
-                                    document.location.reload(true);
+                                    page = document.location.href;
+                                    document.location.href = page;
                                 }
                                 else{
                                     alert("Erro ao criar!\n"+data);
@@ -223,30 +172,6 @@ function confereCod(iddb) {
             }
         });
     }
-}
-
-function exitDashboard(dado, tipo) {
-    if(typeof dado == "string"){
-        id = dado;
-    }
-    else{
-        var id = dado.value;
-    }
-    var iddb = document.getElementById("iddb").value;
-    $.ajax({
-        url: 'controller/db/limpatoken.php?id='+iddb,
-        type: 'POST',
-        data: {id:id, tipo:tipo},
-        success: function(data){
-            if(data == "true"){
-                alert("Sessão no sistema finalizada!");
-                window.location.href = 'paineladm.php?id='+iddb;
-            }
-            else{
-                alert("Falha ao fechar sessão!\n"+data);
-            }
-        },
-    });
 }
 
 function pegaautoridade(select) {

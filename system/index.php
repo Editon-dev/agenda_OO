@@ -73,7 +73,7 @@
     <!--ADM BUTTON-->
     <?php
         $hidden = "";
-        $admurl = "document.location.href='paineladm.php?id=".$iddb."'";
+        $admurl = "paineladm.php?id=".$iddb;
         $admname = "Administrativo";
         $admimg = "adm_icon.png";
     ?>
@@ -83,7 +83,7 @@
     <header>
         <!--MENU-->
         <?php require_once "../view/elements/menu_bar.php" ?>
-        <input type="hidden" name="iddb" id="iddb" value="<?php echo $iddb ?>">
+        <input type="hidden" name="iddb" id="iddb" value="<?=$iddb ?>">
         <input type="hidden" name="daycalendar" id="daycalendar" value="">
     </header>
 
